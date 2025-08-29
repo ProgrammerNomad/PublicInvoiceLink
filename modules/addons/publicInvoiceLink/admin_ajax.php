@@ -36,6 +36,25 @@ if ($action === 'generate_pilink' && $invoiceId > 0) {
             throw new Exception('WHMCS configuration not found');
         }
         
+        // Get system URL from configuration or construct from current request
+        $systemURL = '';
+        $systemSSLURL = '';
+        
+        // Try to get from WHMCS config variables
+        if (isset($systemsslurl) && !empty($systemsslurl)) {
+            $systemURL = $systemsslurl;
+        } elseif (isset($systemurl) && !empty($systemurl)) {
+            $systemURL = $systemurl;
+        } else {
+            // Fallback: construct from current request
+            $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
+            $host = $_SERVER['HTTP_HOST'];
+            $systemURL = $protocol . $host;
+        }
+        
+        // Ensure trailing slash
+        $systemURL = rtrim($systemURL, '/') . '/';
+        
         // Connect to database
         $mysqli = new mysqli($db_host, $db_username, $db_password, $db_name);
         if ($mysqli->connect_error) {
@@ -76,8 +95,7 @@ if ($action === 'generate_pilink' && $invoiceId > 0) {
         }
         
         // Generate the public URL
-        $systemurl = !empty($systemsslurl) ? $systemsslurl . '/' : $systemurl . '/';
-        $publicUrl = $systemurl . "index.php?m=publicInvoiceLink&k=" . $accessKey;
+        $publicUrl = $systemURL . "index.php?m=publicInvoiceLink&k=" . $accessKey;
         
         $mysqli->close();
         
