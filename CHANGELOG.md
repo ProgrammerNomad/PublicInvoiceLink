@@ -6,6 +6,54 @@
 
 All notable changes to the PublicInvoiceLink WHMCS addon will be documented in this file.
 
+## [1.0.1] - 2025-08-29
+
+### 🚀 Admin Integration Update
+
+Enhanced the addon with powerful admin area integration for seamless public link management.
+
+### ✨ New Features
+
+- **Admin Copy Button**: One-click "Copy Public Link" button on invoice edit pages
+- **Smart Token Management**: Intelligent token reuse to prevent conflicts between email and admin-generated links
+- **Instant Clipboard Copy**: Generated links are automatically copied to clipboard with visual feedback
+- **URL Consistency**: Email links and admin-generated links now use identical format and domain
+- **Real-time Generation**: Create public links on-demand without sending emails
+
+### 🔧 Technical Improvements
+
+- **AJAX Endpoint**: New `admin_ajax.php` for secure link generation
+- **Enhanced Hooks**: Expanded `hooks.php` with admin area integration
+- **Token Optimization**: Email hooks now reuse existing valid tokens instead of creating duplicates
+- **Configuration Handling**: Improved WHMCS configuration loading in admin context
+- **Error Handling**: Better error messages and fallback mechanisms
+
+### 🛠️ User Experience
+
+- **Visual Feedback**: Success/error notifications with SweetAlert integration
+- **Loading States**: Clear visual indicators during link generation
+- **Fallback Support**: Multiple button placement strategies for different WHMCS themes
+- **Debug Support**: Comprehensive console logging for troubleshooting
+
+### 🔒 Security Enhancements
+
+- **CSRF Protection**: Proper token validation in admin requests
+- **Token Reuse**: Eliminates security risks from multiple active tokens
+- **Consistent Expiration**: Unified expiration handling across all generation methods
+
+### 📋 How to Use New Features
+
+1. **Admin Integration**: Navigate to any invoice edit page in WHMCS admin
+2. **Copy Link**: Click the blue "Copy Public Link" button next to "View Invoice"
+3. **Instant Access**: Link is automatically generated and copied to clipboard
+4. **Share Securely**: Paste the link to share invoice access with clients
+
+### 🔄 Upgrade Notes
+
+- **Existing Tokens**: All existing tokens continue to work normally
+- **Email Templates**: No changes needed to existing email templates
+- **Configuration**: No additional setup required - works immediately after update
+
 ## [1.0.0] - 2025-08-29
 
 ### 🎉 Initial Release

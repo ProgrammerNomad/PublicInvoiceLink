@@ -4,7 +4,7 @@
 
 [![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-blue)](https://github.com/ProgrammerNomad/PublicInvoiceLink)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/Version-1.0.0-green)](https://github.com/ProgrammerNomad/PublicInvoiceLink/releases)
+[![Version](https://img.shields.io/badge/Version-1.0.1-green)](https://github.com/ProgrammerNomad/PublicInvoiceLink/releases)
 
 ## Author Information
 
@@ -21,7 +21,10 @@ PublicInvoiceLink is a WHMCS addon that allows clients to access their invoices 
 ## Features
 
 - **Secure Public Links**: Generate secure, time-limited links for invoice access
+- **Admin Integration**: One-click "Copy Public Link" button on invoice edit pages ✨ **NEW in v1.0.1**
 - **Email Integration**: Seamlessly integrates with WHMCS email templates using `{$pilink_access_url}` merge field
+- **Smart Token Management**: Intelligent token reuse prevents conflicts between email and admin-generated links ✨ **NEW in v1.0.1**
+- **Instant Clipboard Copy**: Generated links are automatically copied to clipboard ✨ **NEW in v1.0.1**
 - **Configurable Expiration**: Set custom expiration time (default: 20 days)
 - **Automatic Cleanup**: Links are automatically removed when invoices are paid or cancelled
 - **Click Tracking**: Track link usage for audit purposes
@@ -71,7 +74,9 @@ CREATE TABLE `pilink_access_tokens` (
 - **Restriction Mode**: Limit access to invoice and payment pages only
 - **Expiration Days**: Number of days links remain valid (default: 20)
 
-### Email Template Integration
+## Usage
+
+### Email Integration (Automatic)
 
 Add the merge field `{$pilink_access_url}` to any invoice email template to automatically include the public access link.
 
@@ -83,6 +88,21 @@ Example email template:
 ```html
 <p>Click here to view your invoice: {$pilink_access_url_html}</p>
 ```
+
+### Admin Area Integration ✨ **NEW in v1.0.1**
+
+Generate public invoice links directly from the WHMCS admin area:
+
+1. **Navigate** to any invoice edit page (`Billing → Invoices → Edit Invoice`)
+2. **Look for** the blue "Copy Public Link" button next to the "View Invoice" button
+3. **Click** the button to instantly generate and copy the public link
+4. **Share** the copied link with your client via any communication method
+
+**Features:**
+- ✅ One-click link generation and clipboard copy
+- ✅ Visual feedback with success notifications
+- ✅ Smart token reuse (same link as email if already generated)
+- ✅ Instant access without sending emails
 
 ## How It Works
 

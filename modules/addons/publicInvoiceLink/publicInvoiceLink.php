@@ -6,7 +6,7 @@
  * This link will expire in configurable days or when the invoice is paid or cancelled.
  * 
  * @package PublicInvoiceLink
- * @version 1.0.0
+ * @version 1.0.1
  * @author ProgrammerNomad
  * @copyright 2025 ProgrammerNomad
  * @license MIT License
@@ -23,7 +23,7 @@ function publicInvoiceLink_config() {
     $configarray = array(
     "name" => "Public Invoice Link",
     "description" => "Allows your clients to login via a link sent in invoice emails. This link will expire in configurable days or when the invoice is paid or cancelled. Free and open source addon available at: https://github.com/ProgrammerNomad/PublicInvoiceLink",
-    "version" => "1.0.0",
+    "version" => "1.0.1",
     "author" => "ProgrammerNomad",
     "language" => "english",
     "fields" => array(

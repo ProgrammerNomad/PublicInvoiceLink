@@ -5,7 +5,7 @@
  * Model for handling access token functionality for public invoice links.
  * 
  * @package PublicInvoiceLink\Models
- * @version 1.0.0
+ * @version 1.0.1
  * @author ProgrammerNomad
  * @copyright 2025 ProgrammerNomad
  * @license MIT License
