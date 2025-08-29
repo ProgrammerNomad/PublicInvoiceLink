@@ -36,24 +36,17 @@ if ($action === 'generate_pilink' && $invoiceId > 0) {
             throw new Exception('WHMCS configuration not found');
         }
         
-        // Get system URL from configuration or construct from current request
-        $systemURL = '';
-        $systemSSLURL = '';
-        
-        // Try to get from WHMCS config variables
-        if (isset($systemsslurl) && !empty($systemsslurl)) {
-            $systemURL = $systemsslurl;
-        } elseif (isset($systemurl) && !empty($systemurl)) {
-            $systemURL = $systemurl;
-        } else {
-            // Fallback: construct from current request
+        // Use same logic as email hook for consistency
+        global $CONFIG;
+        if (!isset($CONFIG)) {
+            // If $CONFIG is not available, construct from current request
             $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
             $host = $_SERVER['HTTP_HOST'];
-            $systemURL = $protocol . $host;
+            $systemURL = $protocol . $host . '/';
+        } else {
+            // Use WHMCS CONFIG like the email hook does
+            $systemURL = ($CONFIG['SystemSSLURL']) ? $CONFIG['SystemSSLURL'].'/' : $CONFIG['SystemURL'].'/';
         }
-        
-        // Ensure trailing slash
-        $systemURL = rtrim($systemURL, '/') . '/';
         
         // Connect to database
         $mysqli = new mysqli($db_host, $db_username, $db_password, $db_name);

@@ -22,18 +22,29 @@ function create_pilink_access_token($vars) {
   if (Capsule::table('tblemailtemplates')->where('type','invoice')->where('name',$vars['messagename'])->where('message','like','%pilink_access_url%')->count() > 0) {
     $invoice = \WHMCS\Billing\Invoice::find($vars['relid']);
   
-    $access_token = new \PublicInvoiceLink\Models\PilinkAccess;
+    // Check if a valid token already exists for this invoice
+    $existingTokenData = Capsule::table('pilink_access_tokens')
+        ->where('invoice_id', $invoice->id)
+        ->where('expiration', '>', date('Y-m-d H:i:s'))
+        ->first();
     
-    $access_token->invoice_id = $invoice->id;
-    $access_token->user_id = $invoice->clientId;
-    $access_token->generate_key();
-    $access_token->save();
+    if ($existingTokenData) {
+        // Use existing valid token
+        $accessKey = $existingTokenData->key;
+    } else {
+        // Create new token only if none exists or all are expired
+        $access_token = new \PublicInvoiceLink\Models\PilinkAccess;
+        $access_token->invoice_id = $invoice->id;
+        $access_token->user_id = $invoice->clientId;
+        $access_token->generate_key();
+        $access_token->save();
+        $accessKey = $access_token->key;
+    }
 
-     
     // Generate access URL
     global $CONFIG;
     $systemurl = ($CONFIG['SystemSSLURL']) ? $CONFIG['SystemSSLURL'].'/' : $CONFIG['SystemURL'].'/';
-    $access_url = $systemurl ."index.php?m=publicInvoiceLink&k=".$access_token->key;
+    $access_url = $systemurl ."index.php?m=publicInvoiceLink&k=".$accessKey;
     $access_url_html = "<a href='".$access_url."'>".$access_url."</a>";
     
     return array("pilink_access_url" => $access_url,"pilink_access_url_html" => $access_url_html);
