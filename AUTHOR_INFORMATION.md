@@ -24,12 +24,12 @@ PublicInvoiceLink is a free and open source WHMCS addon that allows clients to a
 - Version: 1.0.0
 - License: MIT License
 
-### 2. Model File (`models/auto_login.php`)
-- Eloquent model for auto login functionality
+### 2. Model File (`models/pilink_access.php`)
+- Eloquent model for public invoice link functionality
 - Handles database operations for public invoice links
 - Namespace: `PublicInvoiceLink\Models`
-- Class: `AutoLogin`
-- Table: `publicInvoiceLink_autologin`
+- Class: `PilinkAccess`
+- Table: `pilink_access_tokens`
 
 ### 3. Hooks File (`hooks.php`)
 - WHMCS hook functions for email integration
@@ -41,8 +41,8 @@ PublicInvoiceLink is a free and open source WHMCS addon that allows clients to a
 - Handles invoice rendering without login requirements
 
 ### 5. Additional Files
-- `public_invoice_link/ajax.php` - AJAX functionality (extensible)
-- `public_invoice_link/hooks.php` - Additional hooks (extensible)
+- `publicInvoiceLink/admin_ajax.php` - AJAX functionality for admin area
+- `publicInvoiceLink/hooks.php` - Hook functions for email and client area integration
 
 ### 6. Documentation Files
 - `README.md` - Comprehensive setup and usage guide
@@ -83,7 +83,7 @@ All files include proper headers with:
 2. Upload `publicInvoiceLink` folder to `/modules/addons/`
 3. Activate in WHMCS Admin → Setup → Addon Modules
 4. Configure settings as needed
-5. Add `{$auto_login_link}` to invoice email templates
+5. Add `{$pilink_access_url}` to invoice email templates
 
 ## Support and Community
 

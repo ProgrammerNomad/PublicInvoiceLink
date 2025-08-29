@@ -114,13 +114,18 @@ Add the merge field `{$pilink_access_url}` to any invoice email template to auto
 modules/addons/publicInvoiceLink/
 ├── publicInvoiceLink.php          # Main addon file
 ├── hooks.php                      # Hook functions
+├── admin_ajax.php                 # AJAX handlers for admin area
 ├── invoicepdf.tpl                # Invoice template
 └── models/
     └── pilink_access.php         # PilinkAccess model
 
-public_invoice_link/
-├── ajax.php                      # AJAX handlers
-└── hooks.php                     # Additional hooks
+publicInvoiceLink/
+├── publicInvoiceLink.php         # Main addon configuration
+├── hooks.php                     # Hook functions for email and client area
+├── admin_ajax.php                # AJAX handlers for admin area
+├── invoicepdf.tpl               # Public invoice template
+└── models/
+    └── pilink_access.php        # Database model
 ```
 
 ### 🔗 Links
@@ -136,13 +141,13 @@ public_invoice_link/
 *Made with ❤️ by ProgrammerNomad*
 
 ##### `hooks.php`
-- ✅ Updated model include path from `invoice_login.php` to `auto_login.php`
-- ✅ Updated class references from `\ServerPing\InvoiceLogin\InvoiceLogin` to `\PublicInvoiceLink\Models\AutoLogin`
-- ✅ Updated module parameter in autologin URL from `m=invoicelogin` to `m=publicInvoiceLink`
-- ✅ Updated module references in database queries from `invoicelogin` to `publicInvoiceLink`
+- ✅ Updated model include path to use `pilink_access.php`
+- ✅ Updated class references to use `\PublicInvoiceLink\Models\PilinkAccess`
+- ✅ Updated module parameter in public URLs to use `m=publicInvoiceLink`
+- ✅ Updated module references in database queries to use `publicInvoiceLink`
 
 ##### `invoicepdf.tpl`
-- ✅ Updated include path from `invoicelogin/models/invoice_login.php` to `publicInvoiceLink/models/auto_login.php`
+- ✅ Updated include path to use `publicInvoiceLink/models/pilink_access.php`
 
 ### Database Migration Notes
 
@@ -159,7 +164,7 @@ public_invoice_link/
    ```
 
 3. **Update email templates**:
-   - No changes needed - the merge fields `{$auto_login_link}` and `{$auto_login_link_html}` remain the same
+   - Update merge fields from old format to `{$pilink_access_url}` and `{$pilink_access_url_html}`
 
 ### New Features in v2.0
 - ✅ Improved error handling in database table creation

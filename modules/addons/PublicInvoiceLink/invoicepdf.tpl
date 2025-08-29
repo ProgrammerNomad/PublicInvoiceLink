@@ -196,17 +196,18 @@ $tblhtml .= '
 $pdf->writeHTML($tblhtml, true, false, false, false, '');
 if ($status == "Unpaid") {
     $invoice = \WHMCS\Billing\Invoice::find($id);
+    require_once(dirname(__FILE__) . "/models/pilink_access.php");
   
-    $invoice_login = new \ServerPing\InvoiceLogin\InvoiceLogin;
+    $pilink_access = new \PublicInvoiceLink\Models\PilinkAccess;
     
-    $invoice_login->invoice_id = $invoice->id;
-    $invoice_login->user_id = $invoice->clientId;
-    $invoice_login->generate_key();
-    $invoice_login->save();
+    $pilink_access->invoice_id = $invoice->id;
+    $pilink_access->user_id = $invoice->clientId;
+    $pilink_access->generate_key();
+    $pilink_access->save();
  
     global $CONFIG;
     $systemurl = ($CONFIG['SystemSSLURL']) ? $CONFIG['SystemSSLURL'].'/' : $CONFIG['SystemURL'].'/';
-    $autolink = $systemurl ."index.php?m=invoicelogin&k=".$invoice_login->key;
+    $autolink = $systemurl ."index.php?m=publicInvoiceLink&k=".$pilink_access->key;
     
     $pdf->Ln(5);  
     $pdf->Cell(150,'');
