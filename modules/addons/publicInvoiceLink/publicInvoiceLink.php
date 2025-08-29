@@ -1,22 +1,8 @@
 <?php
 /**
- * WHMCS Public Invoice Lfunction publicInvoiceLink_activate() {
-  try {
-    Capsule::schema()->create(
-        'pilink_access_tokens',
-        function ($table) {
-            /** @var \Illuminate\Database\Schema\Blueprint $table */
-            $table->string('key')->primary();
-            $table->integer('user_id');
-            $table->integer('invoice_id');
-            $table->integer('clicks');
-            $table->date('expiration');
-        }
-    );
-   } 
-   catch (\Exception $e) {
-     echo "Unable to create pilink_access_tokens table: {$e->getMessage()}";
-   }* Allows clients to access their invoices via a public link without requiring login.
+ * WHMCS Public Invoice Link Addon
+ * 
+ * Allows clients to access their invoices via a public link without requiring login.
  * This link will expire in configurable days or when the invoice is paid or cancelled.
  * 
  * @package PublicInvoiceLink
@@ -52,7 +38,7 @@ function publicInvoiceLink_config() {
 function publicInvoiceLink_activate() {
   try {
     Capsule::schema()->create(
-        'publicInvoiceLink_autologin',
+        'pilink_access_tokens',
         function ($table) {
             /** @var \Illuminate\Database\Schema\Blueprint $table */
             $table->string('key')->primary();
@@ -64,7 +50,7 @@ function publicInvoiceLink_activate() {
     );
    } 
    catch (\Exception $e) {
-     echo "Unable to create publicInvoiceLink_autologin table: {$e->getMessage()}";
+     echo "Unable to create pilink_access_tokens table: {$e->getMessage()}";
    }
    
 	$key = uniqid();
