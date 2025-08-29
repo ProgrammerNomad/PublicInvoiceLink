@@ -131,35 +131,3 @@ modules/addons/publicInvoiceLink/
 
 **Thank you for using PublicInvoiceLink!** 🚀  
 *Made with ❤️ by ProgrammerNomad*
-CREATE TABLE `publicInvoiceLink_autologin` (
-  `key` varchar(255) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `invoice_id` int(11) NOT NULL,
-  `clicks` int(11) NOT NULL,
-  `expiration` date NOT NULL,
-  PRIMARY KEY (`key`)
-);
-```
-
-#### URL Structure
-
-Public invoice links use the format:
-
-```text
-https://yourdomain.com/index.php?m=publicInvoiceLink&k=TOKEN_HERE
-```
-
-### Testing Checklist
-
-- ✅ Addon activation/deactivation
-- ✅ Database table creation
-- ✅ Public link generation via email
-- ✅ Public link generation via admin button
-- ✅ Email template integration
-- ✅ Link expiration functionality
-- ✅ Invoice payment/cancellation cleanup
-- ✅ Access restriction features
-- ✅ Click tracking
-- ✅ Admin area integration
-
----
