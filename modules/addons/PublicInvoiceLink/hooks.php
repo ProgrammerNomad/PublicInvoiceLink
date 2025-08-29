@@ -65,6 +65,8 @@ function disable_non_invoice_pages($vars) {
 }
 
 
+
+
 add_hook("EmailPreSend", 1, "create_pilink_access_token");
 add_hook("InvoicePaid",1,"remove_pilink_access_tokens");
 add_hook("InvoiceCancelled",1,"remove_pilink_access_tokens");
