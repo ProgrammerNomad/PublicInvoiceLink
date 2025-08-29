@@ -47,10 +47,6 @@ modules/addons/publicInvoiceLink/
 ├── invoicepdf.tpl            # Invoice template for public viewing
 └── models/
     └── pilink_access.php     # PilinkAccess model class
-
-public_invoice_link/
-├── ajax.php                  # AJAX functionality (extensible)
-└── hooks.php                 # Additional hooks (extensible)
 ```
 
 ## Database Schema
