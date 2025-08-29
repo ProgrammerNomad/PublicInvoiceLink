@@ -5,7 +5,7 @@
 **GitHub Repository**: https://github.com/ProgrammerNomad/PublicInvoiceLink
 **Author**: ProgrammerNomad
 **License**: MIT License (Free and Open Source)
-**Version**: 1.0.0
+**Version**: 1.0.1
 
 ## About This Project
 
@@ -13,42 +13,69 @@ PublicInvoiceLink is a free and open source WHMCS addon that allows clients to a
 
 ## File Structure and Components
 
-### 1. Main Addon File (`publicInvoiceLink.php`)
+### Actual Project Structure
+
+```text
+PublicInvoiceLink/
+├── modules/
+│   └── addons/
+│       └── publicInvoiceLink/
+│           ├── publicInvoiceLink.php      # Main addon configuration
+│           ├── hooks.php                  # Hook functions for email and admin integration
+│           ├── admin_ajax.php             # AJAX endpoint for admin area
+│           ├── invoicepdf.tpl            # Public invoice template
+│           └── models/
+│               └── pilink_access.php     # Database model class
+├── README.md                              # Main documentation
+├── CHANGELOG.md                          # Version history
+├── AUTHOR_INFORMATION.md                 # This file
+├── CONTRIBUTING.md                       # Contribution guidelines
+└── LICENSE                               # MIT License
+```
+
+### Core Files Description
+
+#### 1. Main Addon File (`publicInvoiceLink.php`)
+
 - Core addon configuration and functionality
 - Contains all main addon functions:
   - `publicInvoiceLink_config()` - Addon configuration
-  - `publicInvoiceLink_activate()` - Installation handler
-  - `publicInvoiceLink_upgrade()` - Upgrade handler
-  - `publicInvoiceLink_clientarea()` - Public access handler
+  - `publicInvoiceLink_activate()` - Installation and database setup
+  - `publicInvoiceLink_upgrade()` - Version upgrade handler
+  - `publicInvoiceLink_clientarea()` - Public access processing
+- Version: 1.0.1
 - Author: ProgrammerNomad
-- Version: 1.0.0
-- License: MIT License
 
-### 2. Model File (`models/pilink_access.php`)
-- Eloquent model for public invoice link functionality
-- Handles database operations for public invoice links
+#### 2. Hook Functions (`hooks.php`)
+
+- Email integration hooks for automatic link generation
+- Admin area integration for manual link creation
+- Automatic cleanup when invoices are paid/cancelled
+- Functions:
+  - `create_pilink_access_token()` - Generate secure access tokens
+  - `remove_pilink_access_tokens()` - Clean up expired tokens
+  - `add_pilink_admin_button()` - Add admin copy button
+  - `disable_non_invoice_pages()` - Restrict access when enabled
+
+#### 3. AJAX Handler (`admin_ajax.php`)
+
+- Handles admin area link generation requests
+- Secure token validation and generation
+- JSON response formatting for admin interface
+
+#### 4. Database Model (`models/pilink_access.php`)
+
+- Eloquent model for database operations
 - Namespace: `PublicInvoiceLink\Models`
 - Class: `PilinkAccess`
 - Table: `pilink_access_tokens`
+- Methods for token generation and client relationships
 
-### 3. Hooks File (`hooks.php`)
-- WHMCS hook functions for email integration
-- Automatic link generation and cleanup
-- Integrates with WHMCS email system
+#### 5. Public Template (`invoicepdf.tpl`)
 
-### 4. Template File (`invoicepdf.tpl`)
 - Invoice display template for public access
-- Handles invoice rendering without login requirements
-
-### 5. Additional Files
-- `publicInvoiceLink/admin_ajax.php` - AJAX functionality for admin area
-- `publicInvoiceLink/hooks.php` - Hook functions for email and client area integration
-
-### 6. Documentation Files
-- `README.md` - Comprehensive setup and usage guide
-- `LICENSE` - MIT License
-- `CONTRIBUTING.md` - Contribution guidelines
-- `CHANGELOG.md` - Version history and changes
+- Handles authentication and invoice rendering
+- No login requirements for clients
 
 ## Key Features
 
@@ -62,11 +89,12 @@ PublicInvoiceLink is a free and open source WHMCS addon that allows clients to a
 ## Repository Information
 
 All files include proper headers with:
+
 - Author: ProgrammerNomad
 - Copyright: 2025 ProgrammerNomad
 - License: MIT License
-- Repository: https://github.com/ProgrammerNomad/PublicInvoiceLink
-- Issues: https://github.com/ProgrammerNomad/PublicInvoiceLink/issues
+- Repository: [GitHub Repository](https://github.com/ProgrammerNomad/PublicInvoiceLink)
+- Issues: [Report Issues](https://github.com/ProgrammerNomad/PublicInvoiceLink/issues)
 - Documentation links
 
 ## Key Benefits
@@ -79,7 +107,7 @@ All files include proper headers with:
 
 ## Installation
 
-1. Download from GitHub: https://github.com/ProgrammerNomad/PublicInvoiceLink
+1. Download from [GitHub Repository](https://github.com/ProgrammerNomad/PublicInvoiceLink)
 2. Upload `publicInvoiceLink` folder to `/modules/addons/`
 3. Activate in WHMCS Admin → Setup → Addon Modules
 4. Configure settings as needed

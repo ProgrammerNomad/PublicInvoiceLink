@@ -40,10 +40,11 @@ PublicInvoiceLink is a WHMCS addon that allows clients to access their invoices 
 
 ## File Structure
 
-```
+```text
 modules/addons/publicInvoiceLink/
 ├── publicInvoiceLink.php      # Main addon configuration file
-├── hooks.php                  # Hook functions for email integration
+├── hooks.php                  # Hook functions for email and admin integration
+├── admin_ajax.php             # AJAX endpoint for admin area
 ├── invoicepdf.tpl            # Invoice template for public viewing
 └── models/
     └── pilink_access.php     # PilinkAccess model class
@@ -77,10 +78,12 @@ CREATE TABLE `pilink_access_tokens` (
 Add the merge field `{$pilink_access_url}` to any invoice email template to automatically include the public access link.
 
 Available merge fields:
+
 - `{$pilink_access_url}` - Plain text link
 - `{$pilink_access_url_html}` - HTML formatted link
 
 Example email template:
+
 ```html
 <p>Click here to view your invoice: {$pilink_access_url_html}</p>
 ```
@@ -95,6 +98,7 @@ Generate public invoice links directly from the WHMCS admin area:
 4. **Share** the copied link with your client via any communication method
 
 **Features:**
+
 - ✅ One-click link generation and clipboard copy
 - ✅ Visual feedback with success notifications
 - ✅ Smart token reuse (same link as email if already generated)

@@ -110,22 +110,14 @@ Add the merge field `{$pilink_access_url}` to any invoice email template to auto
 
 ### 📁 File Structure
 
-```
+```text
 modules/addons/publicInvoiceLink/
-├── publicInvoiceLink.php          # Main addon file
-├── hooks.php                      # Hook functions
-├── admin_ajax.php                 # AJAX handlers for admin area
-├── invoicepdf.tpl                # Invoice template
+├── publicInvoiceLink.php      # Main addon configuration file
+├── hooks.php                  # Hook functions for email and admin integration
+├── admin_ajax.php             # AJAX endpoint for admin area
+├── invoicepdf.tpl            # Invoice template for public viewing
 └── models/
-    └── pilink_access.php         # PilinkAccess model
-
-publicInvoiceLink/
-├── publicInvoiceLink.php         # Main addon configuration
-├── hooks.php                     # Hook functions for email and client area
-├── admin_ajax.php                # AJAX handlers for admin area
-├── invoicepdf.tpl               # Public invoice template
-└── models/
-    └── pilink_access.php        # Database model
+    └── pilink_access.php     # PilinkAccess model class
 ```
 
 ### 🔗 Links
@@ -139,65 +131,6 @@ publicInvoiceLink/
 
 **Thank you for using PublicInvoiceLink!** 🚀  
 *Made with ❤️ by ProgrammerNomad*
-
-##### `hooks.php`
-- ✅ Updated model include path to use `pilink_access.php`
-- ✅ Updated class references to use `\PublicInvoiceLink\Models\PilinkAccess`
-- ✅ Updated module parameter in public URLs to use `m=publicInvoiceLink`
-- ✅ Updated module references in database queries to use `publicInvoiceLink`
-
-##### `invoicepdf.tpl`
-- ✅ Updated include path to use `publicInvoiceLink/models/pilink_access.php`
-
-### Database Migration Notes
-
-**Important**: When upgrading from the old version, you may need to:
-
-1. **Rename the database table**:
-   ```sql
-   RENAME TABLE `serverping_invoicelogin` TO `publicInvoiceLink_autologin`;
-   ```
-
-2. **Update module references in tbladdonmodules**:
-   ```sql
-   UPDATE `tbladdonmodules` SET `module` = 'publicInvoiceLink' WHERE `module` = 'invoicelogin';
-   ```
-
-3. **Update email templates**:
-   - Update merge fields from old format to `{$pilink_access_url}` and `{$pilink_access_url_html}`
-
-### New Features in v2.0
-- ✅ Improved error handling in database table creation
-- ✅ Better code organization and naming conventions
-- ✅ Enhanced documentation
-- ✅ Consistent naming throughout the codebase
-
-### Migration Guide
-
-#### For New Installations
-1. Upload the `publicInvoiceLink` folder to `/modules/addons/`
-2. Activate the addon in WHMCS admin area
-3. Configure settings as needed
-
-#### For Existing Users (Upgrading from InvoiceLogin)
-1. **Backup your database** before proceeding
-2. Upload the new `publicInvoiceLink` folder to `/modules/addons/`
-3. Run the database migration queries above
-4. Remove the old `invoicelogin` folder from `/modules/addons/`
-5. Reactivate the addon in WHMCS admin area
-
-### Technical Details
-
-#### Module Configuration
-```php
-"name" => "Public Invoice Link"
-"description" => "Allows your clients to login via a link sent in invoice emails. This link will expire in 20 days or when the invoice is paid or cancelled."
-"version" => "2.0"
-"author" => "PublicInvoiceLink"
-```
-
-#### Database Schema
-```sql
 CREATE TABLE `publicInvoiceLink_autologin` (
   `key` varchar(255) NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -209,33 +142,24 @@ CREATE TABLE `publicInvoiceLink_autologin` (
 ```
 
 #### URL Structure
-New auto-login URLs use the format:
-```
+
+Public invoice links use the format:
+
+```text
 https://yourdomain.com/index.php?m=publicInvoiceLink&k=TOKEN_HERE
 ```
 
-### Backward Compatibility
-- ⚠️ **Not backward compatible** due to module name changes
-- Old auto-login links will not work after upgrade
-- Database migration required for existing installations
-- Email templates using merge fields will continue to work
-
 ### Testing Checklist
+
 - ✅ Addon activation/deactivation
 - ✅ Database table creation
-- ✅ Auto-login link generation
+- ✅ Public link generation via email
+- ✅ Public link generation via admin button
 - ✅ Email template integration
 - ✅ Link expiration functionality
 - ✅ Invoice payment/cancellation cleanup
 - ✅ Access restriction features
 - ✅ Click tracking
+- ✅ Admin area integration
 
 ---
-
-## Previous Versions
-
-### Version 1.13 (Original ServerPing Release)
-- Basic auto-login functionality
-- Email integration
-- Configurable expiration
-- Page access restrictions
